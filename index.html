@@ -1,0 +1,2286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+               maximum-scale=1.0, user-scalable=no,
+               viewport-fit=cover">
+
+<meta name="theme-color" content="#03060b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ROBHA">
+
+<title>ROBHA • Cyber Defense AI</title>
+
+<style>
+:root{
+    --bg:#02050a;
+    --panel:rgba(5,12,21,.82);
+    --panel2:rgba(8,18,30,.92);
+    --cyan:#00eaff;
+    --green:#00ff9d;
+    --blue:#287cff;
+    --red:#ff365d;
+    --yellow:#ffd84d;
+    --text:#e8fbff;
+    --muted:#78909c;
+    --border:rgba(0,234,255,.18);
+    --shadow:0 0 30px rgba(0,234,255,.08);
+}
+
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+    margin:0;
+    min-height:100%;
+    background:
+      radial-gradient(circle at 50% -10%,rgba(0,234,255,.10),transparent 35%),
+      radial-gradient(circle at 100% 100%,rgba(40,124,255,.08),transparent 35%),
+      var(--bg);
+    color:var(--text);
+    font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
+body{
+    overflow-x:hidden;
+}
+
+/* MATRIX BACKGROUND */
+
+#matrix{
+    position:fixed;
+    inset:0;
+    z-index:-3;
+    opacity:.10;
+    pointer-events:none;
+}
+
+.scanline{
+    position:fixed;
+    left:0;
+    right:0;
+    height:1px;
+    background:linear-gradient(90deg,transparent,var(--cyan),transparent);
+    opacity:.10;
+    animation:scan 6s linear infinite;
+    z-index:-1;
+    pointer-events:none;
+}
+
+@keyframes scan{
+    from{top:0}
+    to{top:100%}
+}
+
+/* HEADER */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    padding:
+      calc(env(safe-area-inset-top) + 12px)
+      16px 12px;
+    background:rgba(2,5,10,.86);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid var(--border);
+}
+
+.header-inner{
+    max-width:1100px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.logo{
+    width:44px;
+    height:44px;
+    border:1px solid var(--cyan);
+    border-radius:50%;
+    position:relative;
+    display:grid;
+    place-items:center;
+    box-shadow:
+      0 0 14px rgba(0,234,255,.35),
+      inset 0 0 14px rgba(0,234,255,.08);
+}
+
+.logo::before,
+.logo::after{
+    content:"";
+    position:absolute;
+    border:1px solid rgba(0,234,255,.35);
+    border-radius:50%;
+}
+
+.logo::before{
+    inset:6px;
+}
+
+.logo::after{
+    inset:13px;
+}
+
+.logo-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 12px var(--green);
+}
+
+.brand-title{
+    font-weight:900;
+    letter-spacing:4px;
+    font-size:18px;
+}
+
+.brand-sub{
+    font-size:9px;
+    letter-spacing:2px;
+    color:var(--muted);
+    margin-top:2px;
+}
+
+.status{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    color:var(--green);
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+.status-dot{
+    width:7px;
+    height:7px;
+    background:var(--green);
+    border-radius:50%;
+    box-shadow:0 0 10px var(--green);
+}
+
+/* MAIN */
+
+main{
+    max-width:1100px;
+    margin:auto;
+    padding:18px 14px calc(100px + env(safe-area-inset-bottom));
+}
+
+/* HERO */
+
+.hero{
+    text-align:center;
+    padding:28px 10px 20px;
+}
+
+.hero h1{
+    margin:0;
+    font-size:clamp(30px,9vw,64px);
+    letter-spacing:7px;
+    font-weight:950;
+    text-shadow:
+      0 0 10px rgba(0,234,255,.6),
+      0 0 35px rgba(0,234,255,.15);
+}
+
+.hero h1 span{
+    color:var(--cyan);
+}
+
+.hero p{
+    color:var(--muted);
+    margin:9px auto 0;
+    max-width:650px;
+    line-height:1.5;
+    font-size:13px;
+}
+
+/* CORE */
+
+.core{
+    width:min(330px,82vw);
+    height:min(330px,82vw);
+    margin:18px auto 30px;
+    border-radius:50%;
+    position:relative;
+    display:grid;
+    place-items:center;
+}
+
+.core-ring{
+    position:absolute;
+    inset:0;
+    border:1px solid rgba(0,234,255,.3);
+    border-radius:50%;
+    animation:spin 14s linear infinite;
+}
+
+.core-ring:nth-child(2){
+    inset:14px;
+    border-style:dashed;
+    border-color:rgba(0,255,157,.25);
+    animation-direction:reverse;
+    animation-duration:20s;
+}
+
+.core-ring:nth-child(3){
+    inset:35px;
+    border-color:rgba(40,124,255,.35);
+    animation-duration:9s;
+}
+
+@keyframes spin{
+    to{transform:rotate(360deg)}
+}
+
+.core-center{
+    width:130px;
+    height:130px;
+    border-radius:50%;
+    background:
+      radial-gradient(circle,#0b2632 0%,#031019 55%,#010409 100%);
+    border:1px solid var(--cyan);
+    box-shadow:
+      0 0 25px rgba(0,234,255,.4),
+      inset 0 0 35px rgba(0,234,255,.12);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+.core-center strong{
+    font-size:25px;
+    letter-spacing:4px;
+}
+
+.core-center small{
+    color:var(--green);
+    font-size:8px;
+    letter-spacing:2px;
+    margin-top:5px;
+}
+
+/* GRID */
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(12,1fr);
+    gap:12px;
+}
+
+.card{
+    grid-column:span 12;
+    background:linear-gradient(
+        145deg,
+        rgba(8,18,29,.92),
+        rgba(3,8,14,.86)
+    );
+    border:1px solid var(--border);
+    border-radius:16px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+}
+
+@media(min-width:760px){
+    .half{grid-column:span 6}
+    .third{grid-column:span 4}
+}
+
+.card-head{
+    padding:14px 15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid rgba(0,234,255,.10);
+}
+
+.card-title{
+    font-size:11px;
+    letter-spacing:2px;
+    color:var(--cyan);
+    font-weight:800;
+}
+
+.card-body{
+    padding:15px;
+}
+
+/* INPUTS */
+
+.input-row{
+    display:flex;
+    gap:8px;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    border:1px solid rgba(0,234,255,.20);
+    background:#02070d;
+    color:var(--text);
+    border-radius:10px;
+    padding:12px;
+    outline:none;
+    font-size:13px;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:var(--cyan);
+    box-shadow:0 0 15px rgba(0,234,255,.08);
+}
+
+textarea{
+    min-height:90px;
+    resize:vertical;
+}
+
+button{
+    border:0;
+    cursor:pointer;
+    color:#001014;
+    background:var(--cyan);
+    border-radius:10px;
+    padding:12px 14px;
+    font-weight:900;
+    letter-spacing:.5px;
+    transition:.15s;
+}
+
+button:active{
+    transform:scale(.97);
+}
+
+button.secondary{
+    color:var(--text);
+    background:#07131d;
+    border:1px solid rgba(0,234,255,.18);
+}
+
+button.green{
+    background:var(--green);
+}
+
+button.red{
+    color:white;
+    background:rgba(255,54,93,.15);
+    border:1px solid rgba(255,54,93,.4);
+}
+
+/* QUICK COMMANDS */
+
+.commands{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:8px;
+}
+
+.command{
+    background:#06111a;
+    color:#bdeef5;
+    border:1px solid rgba(0,234,255,.12);
+    padding:11px 8px;
+    border-radius:10px;
+    font-size:11px;
+}
+
+@media(min-width:600px){
+    .commands{
+        grid-template-columns:repeat(4,1fr);
+    }
+}
+
+/* RESULTS */
+
+.result{
+    margin-top:12px;
+    border-radius:10px;
+    background:#010509;
+    border:1px solid rgba(0,234,255,.10);
+    padding:12px;
+    min-height:70px;
+}
+
+.result-title{
+    font-size:10px;
+    letter-spacing:2px;
+    color:var(--muted);
+    margin-bottom:8px;
+}
+
+.result-line{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    padding:7px 0;
+    border-bottom:1px solid rgba(255,255,255,.04);
+    font-size:12px;
+}
+
+.result-line:last-child{
+    border-bottom:0;
+}
+
+.good{color:var(--green)}
+.warn{color:var(--yellow)}
+.bad{color:var(--red)}
+.info{color:var(--cyan)}
+
+/* TERMINAL */
+
+.terminal{
+    background:#010305;
+    border:1px solid rgba(0,255,157,.14);
+    border-radius:12px;
+    padding:12px;
+    height:300px;
+    overflow:auto;
+    font-family:
+      ui-monospace,
+      SFMono-Regular,
+      Menlo,
+      Monaco,
+      Consolas,
+      monospace;
+    font-size:11px;
+    line-height:1.65;
+}
+
+.term-line{
+    white-space:pre-wrap;
+    word-break:break-word;
+}
+
+.prompt{
+    color:var(--green);
+}
+
+.muted{
+    color:var(--muted);
+}
+
+/* CHAT */
+
+.chat{
+    height:350px;
+    overflow:auto;
+    padding:12px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.msg{
+    max-width:88%;
+    padding:10px 12px;
+    border-radius:12px;
+    font-size:12px;
+    line-height:1.5;
+}
+
+.msg.robha{
+    align-self:flex-start;
+    background:#06141d;
+    border:1px solid rgba(0,234,255,.12);
+}
+
+.msg.user{
+    align-self:flex-end;
+    background:rgba(0,234,255,.12);
+    border:1px solid rgba(0,234,255,.18);
+}
+
+.chat-input{
+    display:flex;
+    gap:8px;
+    padding-top:10px;
+}
+
+.mic{
+    width:48px;
+    padding:0;
+    font-size:18px;
+}
+
+/* STATS */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:8px;
+}
+
+.stat{
+    padding:13px;
+    border:1px solid rgba(0,234,255,.10);
+    background:#040b12;
+    border-radius:10px;
+}
+
+.stat small{
+    display:block;
+    color:var(--muted);
+    font-size:9px;
+    letter-spacing:1px;
+}
+
+.stat strong{
+    display:block;
+    margin-top:5px;
+    font-size:15px;
+}
+
+/* FOOTER */
+
+footer{
+    text-align:center;
+    padding:20px;
+    color:#4e6873;
+    font-size:9px;
+    letter-spacing:1px;
+}
+
+/* TOAST */
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:22px;
+    transform:translate(-50%,20px);
+    opacity:0;
+    pointer-events:none;
+    z-index:100;
+    background:#07141d;
+    border:1px solid rgba(0,234,255,.25);
+    color:var(--text);
+    padding:11px 16px;
+    border-radius:10px;
+    font-size:11px;
+    transition:.25s;
+    box-shadow:0 10px 35px rgba(0,0,0,.45);
+}
+
+.toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="matrix"></canvas>
+<div class="scanline"></div>
+
+<header>
+    <div class="header-inner">
+        <div class="brand">
+            <div class="logo">
+                <div class="logo-dot"></div>
+            </div>
+
+            <div>
+                <div class="brand-title">ROBHA</div>
+                <div class="brand-sub">CYBER DEFENSE INTELLIGENCE</div>
+            </div>
+        </div>
+
+        <div class="status">
+            <span class="status-dot"></span>
+            ONLINE
+        </div>
+    </div>
+</header>
+
+<main>
+
+<section class="hero">
+    <h1>R<span>O</span>BHA</h1>
+    <p>
+        Authorized security analysis • Threat intelligence •
+        Website inspection • AI security assistant
+    </p>
+</section>
+
+<div class="core">
+    <div class="core-ring"></div>
+    <div class="core-ring"></div>
+    <div class="core-ring"></div>
+
+    <div class="core-center">
+        <strong>R</strong>
+        <small>DEFENSE CORE</small>
+    </div>
+</div>
+
+<div class="grid">
+
+<!-- SECURITY SCANNER -->
+
+<section class="card">
+    <div class="card-head">
+        <div class="card-title">◉ WEBSITE SECURITY SCANNER</div>
+        <div class="status">READY</div>
+    </div>
+
+    <div class="card-body">
+
+        <div class="input-row">
+            <input
+                id="urlInput"
+                type="url"
+                placeholder="https://example.com"
+                autocomplete="off">
+            <button onclick="scanWebsite()">SCAN</button>
+        </div>
+
+        <div class="result" id="websiteResult">
+            <div class="result-title">SCAN RESULT</div>
+            <div class="muted">
+                Enter a website you own or are authorized to assess.
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- DOMAIN INTELLIGENCE -->
+
+<section class="card half">
+    <div class="card-head">
+        <div class="card-title">⌕ DOMAIN INTELLIGENCE</div>
+    </div>
+
+    <div class="card-body">
+
+        <div class="input-row">
+            <input
+                id="domainInput"
+                placeholder="example.com">
+            <button onclick="domainCheck()">CHECK</button>
+        </div>
+
+        <div class="result" id="domainResult">
+            <div class="muted">Waiting for target...</div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- PHISHING -->
+
+<section class="card half">
+    <div class="card-head">
+        <div class="card-title">⚠ PHISHING RISK ENGINE</div>
+    </div>
+
+    <div class="card-body">
+
+        <div class="input-row">
+            <input
+                id="phishingInput"
+                placeholder="Paste suspicious URL">
+            <button onclick="phishingCheck()">ANALYZE</button>
+        </div>
+
+        <div class="result" id="phishingResult">
+            <div class="muted">No URL analyzed.</div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- DEVICE -->
+
+<section class="card half">
+    <div class="card-head">
+        <div class="card-title">▣ DEVICE SECURITY</div>
+    </div>
+
+    <div class="card-body">
+
+        <div class="stats">
+
+            <div class="stat">
+                <small>PLATFORM</small>
+                <strong id="platform">Detecting...</strong>
+            </div>
+
+            <div class="stat">
+                <small>BROWSER</small>
+                <strong id="browser">Detecting...</strong>
+            </div>
+
+            <div class="stat">
+                <small>ONLINE</small>
+                <strong id="network">Checking...</strong>
+            </div>
+
+            <div class="stat">
+                <small>BATTERY</small>
+                <strong id="battery">Checking...</strong>
+            </div>
+
+        </div>
+
+        <br>
+
+        <button class="secondary" onclick="deviceSecurityCheck()">
+            RUN DEVICE CHECK
+        </button>
+
+    </div>
+</section>
+
+
+<!-- NEARBY DEVICES -->
+
+<section class="card half">
+    <div class="card-head">
+        <div class="card-title">⌁ AUTHORIZED DEVICE DISCOVERY</div>
+    </div>
+
+    <div class="card-body">
+
+        <p class="muted" style="font-size:11px;line-height:1.5">
+            ROBHA can only discover devices through interfaces that
+            your browser/iPhone actually exposes. It cannot secretly
+            scan nearby phones, computers or Wi-Fi devices.
+        </p>
+
+        <button class="green" onclick="discoverDevices()">
+            DISCOVER AVAILABLE DEVICES
+        </button>
+
+        <div class="result" id="deviceResult">
+            <div class="muted">
+                No discovery performed.
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- SAFE TARGET CHECK -->
+
+<section class="card half">
+    <div class="card-head">
+        <div class="card-title">◈ AUTHORIZED SERVICE CHECK</div>
+    </div>
+
+    <div class="card-body">
+
+        <input
+            id="targetHost"
+            placeholder="Your server hostname or IP">
+
+        <br><br>
+
+        <select id="serviceSelect">
+            <option value="443">HTTPS — 443</option>
+            <option value="80">HTTP — 80</option>
+            <option value="22">SSH — 22</option>
+            <option value="53">DNS — 53</option>
+            <option value="8080">HTTP Alt — 8080</option>
+        </select>
+
+        <br><br>
+
+        <button onclick="safeServiceCheck()">
+            CHECK SERVICE
+        </button>
+
+        <div class="result" id="serviceResult">
+            <div class="muted">
+                This browser cannot perform unrestricted TCP port scans.
+                Use the authorized backend endpoint for real checks.
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- AI CHAT -->
+
+<section class="card">
+    <div class="card-head">
+        <div class="card-title">◉ ROBHA AI CORE</div>
+        <div class="status">BHAVESH BABY</div>
+    </div>
+
+    <div class="card-body">
+
+        <div class="chat" id="chat">
+
+            <div class="msg robha">
+                ROBHA online.<br><br>
+                Hello Bhavesh baby. Cyber Defense Core initialized.
+                <br><br>
+                Give me an authorized security task.
+            </div>
+
+        </div>
+
+        <div class="chat-input">
+
+            <input
+                id="chatInput"
+                placeholder="Command ROBHA..."
+                onkeydown="if(event.key==='Enter') sendChat()">
+
+            <button
+                class="mic"
+                onclick="startVoice()"
+                title="Voice command">
+                🎙
+            </button>
+
+            <button onclick="sendChat()">
+                SEND
+            </button>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- QUICK COMMANDS -->
+
+<section class="card">
+    <div class="card-head">
+        <div class="card-title">⚡ QUICK COMMANDS</div>
+    </div>
+
+    <div class="card-body">
+
+        <div class="commands">
+
+            <button class="command"
+                onclick="quickCommand('ROBHA, scan this website')">
+                SCAN WEBSITE
+            </button>
+
+            <button class="command"
+                onclick="quickCommand('ROBHA, check this URL for phishing')">
+                PHISHING CHECK
+            </button>
+
+            <button class="command"
+                onclick="quickCommand('ROBHA, analyze my server')">
+                SERVER ANALYSIS
+            </button>
+
+            <button class="command"
+                onclick="quickCommand('ROBHA, run a device security check')">
+                DEVICE CHECK
+            </button>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- TERMINAL -->
+
+<section class="card">
+    <div class="card-head">
+        <div class="card-title">▣ SECURITY TERMINAL</div>
+
+        <button
+            class="secondary"
+            style="padding:7px 10px;font-size:9px"
+            onclick="clearTerminal()">
+            CLEAR
+        </button>
+    </div>
+
+    <div class="card-body">
+
+        <div class="terminal" id="terminal">
+
+            <div class="term-line">
+                <span class="prompt">ROBHA@DEFENSE:~$</span>
+                boot --secure
+            </div>
+
+            <div class="term-line muted">
+                Initializing cyber defense interface...
+            </div>
+
+            <div class="term-line">
+                <span class="good">[OK]</span>
+                Local security modules loaded.
+            </div>
+
+            <div class="term-line">
+                <span class="good">[OK]</span>
+                Bhavesh memory loaded.
+            </div>
+
+            <div class="term-line">
+                <span class="good">[OK]</span>
+                Safety boundary active.
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+</div>
+
+<footer>
+    ROBHA CYBER DEFENSE • AUTHORIZED SECURITY TESTING ONLY
+</footer>
+
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+
+/* =========================================================
+   ROBHA CYBER DEFENSE
+   Frontend-only safe security assistant
+   ========================================================= */
+
+
+/* -----------------------------
+   CONFIGURATION
+----------------------------- */
+
+const CONFIG = {
+
+    /*
+      IMPORTANT:
+      Leave this empty until you have your own secure backend.
+
+      Example:
+
+      AI_ENDPOINT:
+      https://your-worker.example.workers.dev/api/ai
+
+      SCAN_ENDPOINT:
+      https://your-worker.example.workers.dev/api/scan
+
+      NEVER put an OpenAI/API secret directly in this HTML.
+    */
+
+    AI_ENDPOINT: "",
+
+    SCAN_ENDPOINT: "",
+
+    SERVICE_ENDPOINT: "",
+
+    DEVICE_DISCOVERY_ENDPOINT: ""
+};
+
+
+/* -----------------------------
+   MEMORY
+----------------------------- */
+
+const MEMORY_KEY = "robha_memory_v1";
+
+let memory = JSON.parse(
+    localStorage.getItem(MEMORY_KEY) || "{}"
+);
+
+memory.name = "Bhavesh";
+memory.callName = "Bhavesh baby";
+
+localStorage.setItem(
+    MEMORY_KEY,
+    JSON.stringify(memory)
+);
+
+
+/* -----------------------------
+   HELPERS
+----------------------------- */
+
+function $(id){
+    return document.getElementById(id);
+}
+
+function escapeHTML(value){
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+
+function toast(message){
+
+    const el = $("toast");
+
+    el.textContent = message;
+
+    el.classList.add("show");
+
+    setTimeout(()=>{
+        el.classList.remove("show");
+    },2200);
+}
+
+
+function terminal(message,type=""){
+
+    const t = $("terminal");
+
+    const line = document.createElement("div");
+
+    line.className = "term-line";
+
+    let prefix = "";
+
+    if(type==="good"){
+        prefix = `<span class="good">[OK]</span> `;
+    }
+
+    if(type==="warn"){
+        prefix = `<span class="warn">[WARN]</span> `;
+    }
+
+    if(type==="bad"){
+        prefix = `<span class="bad">[ALERT]</span> `;
+    }
+
+    line.innerHTML =
+        prefix + escapeHTML(message);
+
+    t.appendChild(line);
+
+    t.scrollTop = t.scrollHeight;
+}
+
+
+function clearTerminal(){
+
+    $("terminal").innerHTML =
+        `<div class="term-line">
+            <span class="prompt">ROBHA@DEFENSE:~$</span>
+            terminal cleared
+        </div>`;
+}
+
+
+/* -----------------------------
+   SPEECH
+----------------------------- */
+
+function speak(text){
+
+    if(!("speechSynthesis" in window))
+        return;
+
+    window.speechSynthesis.cancel();
+
+    const utterance =
+        new SpeechSynthesisUtterance(text);
+
+    utterance.rate = .94;
+    utterance.pitch = 1.0;
+    utterance.volume = 1;
+
+    const voices =
+        speechSynthesis.getVoices();
+
+    const preferred =
+        voices.find(v =>
+            /female|samantha|ava|serena|karen|moira/i
+            .test(v.name)
+        );
+
+    if(preferred)
+        utterance.voice = preferred;
+
+    speechSynthesis.speak(utterance);
+}
+
+
+/* -----------------------------
+   WEBSITE SCANNER
+----------------------------- */
+
+async function scanWebsite(){
+
+    const input =
+        $("urlInput").value.trim();
+
+    if(!input){
+
+        toast("Enter a URL first.");
+
+        return;
+    }
+
+    let url;
+
+    try{
+
+        url =
+            new URL(
+                input.match(/^https?:\/\//i)
+                ? input
+                : "https://" + input
+            );
+
+    }catch{
+
+        toast("Invalid URL.");
+
+        return;
+    }
+
+    terminal(
+        `Analyzing ${url.hostname}...`
+    );
+
+    const result = $("websiteResult");
+
+    result.innerHTML = `
+        <div class="result-title">
+            SECURITY ANALYSIS
+        </div>
+
+        <div class="result-line">
+            <span>Hostname</span>
+            <span class="info">
+                ${escapeHTML(url.hostname)}
+            </span>
+        </div>
+
+        <div class="result-line">
+            <span>Protocol</span>
+            <span class="${url.protocol==="https:"?"good":"bad"}">
+                ${escapeHTML(url.protocol)}
+            </span>
+        </div>
+
+        <div class="result-line">
+            <span>HTTPS</span>
+            <span class="${url.protocol==="https:"?"good":"bad"}">
+                ${url.protocol==="https:"?"SECURE TRANSPORT":"NOT HTTPS"}
+            </span>
+        </div>
+
+        <div class="result-line">
+            <span>Port</span>
+            <span>
+                ${escapeHTML(
+                    url.port ||
+                    (url.protocol==="https:" ? "443" : "80")
+                )}
+            </span>
+        </div>
+
+        <div class="result-line">
+            <span>Path</span>
+            <span>
+                ${escapeHTML(url.pathname || "/")}
+            </span>
+        </div>
+    `;
+
+    terminal(
+        `HTTPS status: ${url.protocol==="https:" ? "enabled" : "not detected"}`,
+        url.protocol==="https:" ? "good" : "warn"
+    );
+
+    /*
+      Real security-header checking is normally blocked by CORS
+      when performed directly from a browser.
+
+      If a secure backend is configured, use it.
+    */
+
+    if(CONFIG.SCAN_ENDPOINT){
+
+        try{
+
+            const response =
+                await fetch(CONFIG.SCAN_ENDPOINT,{
+                    method:"POST",
+                    headers:{
+                        "Content-Type":"application/json"
+                    },
+                    body:JSON.stringify({
+                        target:url.href
+                    })
+                });
+
+            if(!response.ok)
+                throw new Error("Backend request failed");
+
+            const data =
+                await response.json();
+
+            renderBackendScan(data);
+
+        }catch(error){
+
+            terminal(
+                "Backend scan unavailable.",
+                "warn"
+            );
+
+        }
+
+    }else{
+
+        terminal(
+            "No secure scan backend configured. Local URL analysis completed.",
+            "warn"
+        );
+    }
+}
+
+
+function renderBackendScan(data){
+
+    const result = $("websiteResult");
+
+    const existing =
+        result.innerHTML;
+
+    let extra = "";
+
+    if(data.headers){
+
+        extra += `
+            <div class="result-title"
+                 style="margin-top:12px">
+                SECURITY HEADERS
+            </div>
+        `;
+
+        for(const [key,value]
+            of Object.entries(data.headers)){
+
+            extra += `
+                <div class="result-line">
+                    <span>
+                        ${escapeHTML(key)}
+                    </span>
+                    <span class="${
+                        value ? "good" : "bad"
+                    }">
+                        ${value ? "PRESENT":"MISSING"}
+                    </span>
+                </div>
+            `;
+        }
+    }
+
+    result.innerHTML =
+        existing + extra;
+
+    terminal(
+        "Authorized backend scan results received.",
+        "good"
+    );
+}
+
+
+/* -----------------------------
+   DOMAIN
+----------------------------- */
+
+function domainCheck(){
+
+    let domain =
+        $("domainInput").value.trim();
+
+    if(!domain){
+
+        toast("Enter a domain.");
+
+        return;
+    }
+
+    domain =
+        domain
+        .replace(/^https?:\/\//i,"")
+        .split("/")[0];
+
+    const valid =
+        /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+        .test(domain);
+
+    $("domainResult").innerHTML = `
+
+        <div class="result-title">
+            DOMAIN ANALYSIS
+        </div>
+
+        <div class="result-line">
+            <span>Domain</span>
+            <span class="info">
+                ${escapeHTML(domain)}
+            </span>
+        </div>
+
+        <div class="result-line">
+            <span>Syntax</span>
+            <span class="${valid?"good":"bad"}">
+                ${valid?"VALID":"INVALID"}
+            </span>
+        </div>
+
+        <div class="result-line">
+            <span>HTTPS URL</span>
+            <span>
+                https://${escapeHTML(domain)}
+            </span>
+        </div>
+
+        <div class="result-line">
+            <span>Backend intelligence</span>
+            <span class="warn">
+                ${CONFIG.SCAN_ENDPOINT?"AVAILABLE":"NOT CONFIGURED"}
+            </span>
+        </div>
+    `;
+
+    terminal(
+        `Domain inspection: ${domain}`,
+        valid ? "good":"bad"
+    );
+}
+
+
+/* -----------------------------
+   PHISHING ANALYZER
+----------------------------- */
+
+function phishingCheck(){
+
+    const input =
+        $("phishingInput").value.trim();
+
+    if(!input){
+
+        toast("Paste a URL.");
+
+        return;
+    }
+
+    let url;
+
+    try{
+
+        url =
+            new URL(
+                input.match(/^https?:\/\//i)
+                ? input
+                : "https://" + input
+            );
+
+    }catch{
+
+        $("phishingResult").innerHTML = `
+            <div class="bad">
+                INVALID URL
+            </div>
+        `;
+
+        return;
+    }
+
+    let risk = 0;
+    let reasons = [];
+
+    const hostname =
+        url.hostname.toLowerCase();
+
+    if(url.protocol !== "https:"){
+        risk += 25;
+        reasons.push("Connection is not HTTPS.");
+    }
+
+    if(hostname.includes("@")){
+        risk += 40;
+        reasons.push("Suspicious @ character.");
+    }
+
+    if(hostname.includes("--")){
+        risk += 10;
+        reasons.push("Multiple hyphens detected.");
+    }
+
+    const suspiciousWords = [
+        "login",
+        "verify",
+        "secure",
+        "account",
+        "wallet",
+        "update",
+        "password",
+        "bank"
+    ];
+
+    let hits =
+        suspiciousWords.filter(
+            word =>
+            hostname.includes(word)
+        );
+
+    if(hits.length){
+
+        risk += Math.min(25,hits.length*7);
+
+        reasons.push(
+            "Sensitive/security-related keywords detected."
+        );
+    }
+
+    if(hostname.length > 45){
+
+        risk += 10;
+
+        reasons.push(
+            "Unusually long hostname."
+        );
+    }
+
+    risk =
+        Math.min(100,risk);
+
+    let level = "LOW";
+    let cls = "good";
+
+    if(risk >= 60){
+
+        level = "HIGH";
+        cls = "bad";
+
+    }else if(risk >= 30){
+
+        level = "MEDIUM";
+        cls = "warn";
+    }
+
+    $("phishingResult").innerHTML = `
+
+        <div class="result-title">
+            PHISHING RISK
+        </div>
+
+        <div class="result-line">
+            <span>Risk score</span>
+            <span class="${cls}">
+                ${risk}/100
+            </span>
+        </div>
+
+        <div class="result-line">
+            <span>Assessment</span>
+            <span class="${cls}">
+                ${level}
+            </span>
+        </div>
+
+        ${
+            reasons.length
+            ?
+            reasons.map(r=>`
+                <div class="result-line">
+                    <span>•</span>
+                    <span>${escapeHTML(r)}</span>
+                </div>
+            `).join("")
+            :
+            `
+            <div class="good">
+                No obvious local indicators detected.
+                This does NOT guarantee the site is safe.
+            </div>
+            `
+        }
+    `;
+
+    terminal(
+        `Phishing analysis complete: ${level} (${risk}/100)`,
+        risk>=60 ? "bad" :
+        risk>=30 ? "warn" : "good"
+    );
+}
+
+
+/* -----------------------------
+   DEVICE SECURITY
+----------------------------- */
+
+function deviceSecurityCheck(){
+
+    const secure =
+        location.protocol === "https:" ||
+        location.hostname === "localhost";
+
+    const online =
+        navigator.onLine;
+
+    $("platform").textContent =
+        navigator.platform || "Unknown";
+
+    $("browser").textContent =
+        detectBrowser();
+
+    $("network").textContent =
+        online ? "ONLINE" : "OFFLINE";
+
+    $("battery").textContent =
+        "Protected";
+
+    terminal(
+        `Browser security context: ${secure ? "secure" : "not HTTPS"}`,
+        secure ? "good":"warn"
+    );
+
+    terminal(
+        `Network status: ${online ? "online":"offline"}`,
+        online ? "good":"warn"
+    );
+
+    toast("Device security check complete.");
+}
+
+
+function detectBrowser(){
+
+    const ua =
+        navigator.userAgent;
+
+    if(/CriOS/i.test(ua))
+        return "Chrome iOS";
+
+    if(/FxiOS/i.test(ua))
+        return "Firefox iOS";
+
+    if(/EdgiOS/i.test(ua))
+        return "Edge iOS";
+
+    if(/Safari/i.test(ua))
+        return "Safari";
+
+    return "Browser";
+}
+
+
+/* -----------------------------
+   BATTERY
+----------------------------- */
+
+async function loadBattery(){
+
+    if(navigator.getBattery){
+
+        try{
+
+            const battery =
+                await navigator.getBattery();
+
+            function update(){
+
+                $("battery").textContent =
+                    Math.round(
+                        battery.level*100
+                    ) + "%";
+
+            }
+
+            update();
+
+            battery.addEventListener(
+                "levelchange",
+                update
+            );
+
+            return;
+
+        }catch{}
+    }
+
+    $("battery").textContent =
+        "Protected";
+}
+
+
+/* -----------------------------
+   DEVICE DISCOVERY
+----------------------------- */
+
+async function discoverDevices(){
+
+    terminal(
+        "Requesting browser-permitted device discovery..."
+    );
+
+    const result =
+        $("deviceResult");
+
+    /*
+      Web Bluetooth is deliberately permission based.
+      On iOS Safari this is generally unavailable.
+    */
+
+    if(!navigator.bluetooth){
+
+        result.innerHTML = `
+            <div class="result-title">
+                DEVICE DISCOVERY
+            </div>
+
+            <div class="warn">
+                Browser Bluetooth discovery is not available
+                in this browser.
+            </div>
+
+            <br>
+
+            <div class="muted">
+                ROBHA cannot secretly enumerate nearby devices.
+                Use an authorized native app/backend for
+                permitted network discovery.
+            </div>
+        `;
+
+        terminal(
+            "Browser does not expose Bluetooth discovery.",
+            "warn"
+        );
+
+        return;
+    }
+
+    try{
+
+        const device =
+            await navigator.bluetooth.requestDevice({
+                acceptAllDevices:true
+            });
+
+        result.innerHTML = `
+
+            <div class="result-title">
+                DEVICE FOUND
+            </div>
+
+            <div class="result-line">
+                <span>Name</span>
+                <span class="good">
+                    ${escapeHTML(
+                        device.name || "Unknown"
+                    )}
+                </span>
+            </div>
+
+            <div class="result-line">
+                <span>ID</span>
+                <span>
+                    ${escapeHTML(device.id)}
+                </span>
+            </div>
+        `;
+
+        terminal(
+            `User-authorized Bluetooth device selected: ${
+                device.name || "Unknown"
+            }`,
+            "good"
+        );
+
+    }catch(error){
+
+        terminal(
+            "Device discovery cancelled or unavailable.",
+            "warn"
+        );
+
+        result.innerHTML = `
+            <div class="warn">
+                Discovery was cancelled or blocked.
+            </div>
+        `;
+    }
+}
+
+
+/* -----------------------------
+   SERVICE CHECK
+----------------------------- */
+
+async function safeServiceCheck(){
+
+    const host =
+        $("targetHost").value.trim();
+
+    const port =
+        $("serviceSelect").value;
+
+    if(!host){
+
+        toast("Enter your authorized server.");
+
+        return;
+    }
+
+    $("serviceResult").innerHTML = `
+        <div class="warn">
+            Preparing authorized service check...
+        </div>
+    `;
+
+    terminal(
+        `Requested service check: ${host}:${port}`
+    );
+
+    /*
+      Browsers cannot make arbitrary raw TCP connections.
+      A backend is required for an actual service check.
+    */
+
+    if(!CONFIG.SERVICE_ENDPOINT){
+
+        $("serviceResult").innerHTML = `
+            <div class="result-title">
+                BACKEND REQUIRED
+            </div>
+
+            <div class="warn">
+                ${escapeHTML(host)}:${escapeHTML(port)}
+            </div>
+
+            <br>
+
+            <div class="muted">
+                GitHub Pages cannot perform unrestricted TCP
+                service checks. Configure ROBHA's authorized
+                backend endpoint to perform this operation.
+            </div>
+        `;
+
+        terminal(
+            "No service-check backend configured.",
+            "warn"
+        );
+
+        return;
+    }
+
+    try{
+
+        const response =
+            await fetch(
+                CONFIG.SERVICE_ENDPOINT,
+                {
+                    method:"POST",
+                    headers:{
+                        "Content-Type":"application/json"
+                    },
+                    body:JSON.stringify({
+                        host,
+                        port
+                    })
+                }
+            );
+
+        const data =
+            await response.json();
+
+        $("serviceResult").innerHTML = `
+            <div class="result-title">
+                SERVICE RESULT
+            </div>
+
+            <pre style="
+                white-space:pre-wrap;
+                color:#bdeef5;
+                font-size:11px;
+            ">${escapeHTML(
+                JSON.stringify(data,null,2)
+            )}</pre>
+        `;
+
+    }catch{
+
+        terminal(
+            "Service-check backend request failed.",
+            "bad"
+        );
+    }
+}
+
+
+/* -----------------------------
+   AI CHAT
+----------------------------- */
+
+async function sendChat(){
+
+    const input =
+        $("chatInput");
+
+    const text =
+        input.value.trim();
+
+    if(!text)
+        return;
+
+    addMessage(
+        text,
+        "user"
+    );
+
+    input.value = "";
+
+    terminal(
+        `Command received: ${text}`
+    );
+
+    const local =
+        localCommand(text);
+
+    if(local){
+
+        addMessage(
+            local,
+            "robha"
+        );
+
+        speak(local);
+
+        return;
+    }
+
+    if(CONFIG.AI_ENDPOINT){
+
+        try{
+
+            const response =
+                await fetch(
+                    CONFIG.AI_ENDPOINT,
+                    {
+                        method:"POST",
+                        headers:{
+                            "Content-Type":"application/json"
+                        },
+                        body:JSON.stringify({
+                            message:text,
+                            user:"Bhavesh",
+                            callName:"Bhavesh baby"
+                        })
+                    }
+                );
+
+            if(!response.ok)
+                throw new Error();
+
+            const data =
+                await response.json();
+
+            const answer =
+                data.answer ||
+                data.output ||
+                "ROBHA received the request.";
+
+            addMessage(
+                answer,
+                "robha"
+            );
+
+            speak(answer);
+
+            return;
+
+        }catch{
+
+            terminal(
+                "AI backend unavailable. Using local defense core.",
+                "warn"
+            );
+        }
+    }
+
+    const fallback =
+        "I am ready, Bhavesh baby. Connect ROBHA to a secure AI backend for full natural-language intelligence.";
+
+    addMessage(
+        fallback,
+        "robha"
+    );
+
+    speak(fallback);
+}
+
+
+function localCommand(text){
+
+    const lower =
+        text.toLowerCase();
+
+    if(
+        lower.includes("my name") ||
+        lower.includes("who am i")
+    ){
+
+        return "Your name is Bhavesh. I call you Bhavesh baby.";
+    }
+
+    if(
+        lower.includes("scan this website") ||
+        lower.includes("scan website")
+    ){
+
+        const url =
+            $("urlInput").value.trim();
+
+        if(url){
+
+            scanWebsite();
+
+            return "Starting the website security analysis now.";
+        }
+
+        return "Give me the website URL first, Bhavesh baby.";
+    }
+
+    if(
+        lower.includes("phishing")
+    ){
+
+        const url =
+            $("phishingInput").value.trim();
+
+        if(url){
+
+            phishingCheck();
+
+            return "Running the phishing-risk analysis.";
+        }
+
+        return "Paste the suspicious URL into the phishing analyzer.";
+    }
+
+    if(
+        lower.includes("device security")
+    ){
+
+        deviceSecurityCheck();
+
+        return "Running the device security check.";
+    }
+
+    if(
+        lower.includes("nearby device") ||
+        lower.includes("bluetooth")
+    ){
+
+        discoverDevices();
+
+        return "I can request only device discovery that your browser and operating system permit.";
+    }
+
+    if(
+        lower.includes("analyze my server")
+    ){
+
+        const host =
+            $("targetHost").value.trim();
+
+        if(host){
+
+            safeServiceCheck();
+
+            return "Starting the authorized server service check.";
+        }
+
+        return "Enter your authorized server hostname or IP first.";
+    }
+
+    if(
+        lower.includes("hello") ||
+        lower.includes("hi robha")
+    ){
+
+        return "Hello Bhavesh baby. ROBHA Cyber Defense is online.";
+    }
+
+    return null;
+}
+
+
+function addMessage(
+    text,
+    type
+){
+
+    const chat =
+        $("chat");
+
+    const div =
+        document.createElement("div");
+
+    div.className =
+        "msg " + type;
+
+    div.textContent =
+        text;
+
+    chat.appendChild(div);
+
+    chat.scrollTop =
+        chat.scrollHeight;
+}
+
+
+function quickCommand(command){
+
+    $("chatInput").value =
+        command;
+
+    sendChat();
+}
+
+
+/* -----------------------------
+   VOICE INPUT
+----------------------------- */
+
+function startVoice(){
+
+    const Recognition =
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
+
+    if(!Recognition){
+
+        toast(
+            "Voice input is not supported by this browser."
+        );
+
+        return;
+    }
+
+    const recognition =
+        new Recognition();
+
+    recognition.lang =
+        "en-IN";
+
+    recognition.interimResults =
+        false;
+
+    recognition.maxAlternatives =
+        1;
+
+    toast("Listening...");
+
+    recognition.start();
+
+    recognition.onresult =
+        event => {
+
+            const text =
+                event.results[0][0].transcript;
+
+            $("chatInput").value =
+                text;
+
+            sendChat();
+        };
+
+    recognition.onerror =
+        () => {
+
+            toast(
+                "Voice recognition failed."
+            );
+        };
+}
+
+
+/* -----------------------------
+   MATRIX
+----------------------------- */
+
+const canvas =
+    $("matrix");
+
+const ctx =
+    canvas.getContext("2d");
+
+let width =
+    canvas.width =
+    window.innerWidth;
+
+let height =
+    canvas.height =
+    window.innerHeight;
+
+let columns =
+    Math.floor(width / 15);
+
+let drops =
+    Array(columns).fill(1);
+
+const chars =
+    "01ABCDEFGHIJKLMNOPQRSTUVWXYZ<>[]{}#$%";
+
+function matrix(){
+
+    ctx.fillStyle =
+        "rgba(2,5,10,.10)";
+
+    ctx.fillRect(
+        0,
+        0,
+        width,
+        height
+    );
+
+    ctx.fillStyle =
+        "#00eaff";
+
+    ctx.font =
+        "12px monospace";
+
+    for(
+        let i=0;
+        i<drops.length;
+        i++
+    ){
+
+        const char =
+            chars[
+                Math.floor(
+                    Math.random()*chars.length
+                )
+            ];
+
+        ctx.fillText(
+            char,
+            i*15,
+            drops[i]*15
+        );
+
+        if(
+            drops[i]*15 > height &&
+            Math.random() > .975
+        ){
+
+            drops[i] = 0;
+        }
+
+        drops[i]++;
+    }
+}
+
+setInterval(
+    matrix,
+    70
+);
+
+window.addEventListener(
+    "resize",
+    ()=>{
+        width =
+            canvas.width =
+            window.innerWidth;
+
+        height =
+            canvas.height =
+            window.innerHeight;
+
+        columns =
+            Math.floor(width / 15);
+
+        drops =
+            Array(columns).fill(1);
+    }
+);
+
+
+/* -----------------------------
+   INITIALIZATION
+----------------------------- */
+
+$("platform").textContent =
+    navigator.platform || "Unknown";
+
+$("browser").textContent =
+    detectBrowser();
+
+$("network").textContent =
+    navigator.onLine
+    ? "ONLINE"
+    : "OFFLINE";
+
+loadBattery();
+
+window.addEventListener(
+    "online",
+    ()=>{
+        $("network").textContent =
+            "ONLINE";
+    }
+);
+
+window.addEventListener(
+    "offline",
+    ()=>{
+        $("network").textContent =
+            "OFFLINE";
+    }
+);
+
+if("speechSynthesis" in window){
+
+    speechSynthesis.onvoiceschanged =
+        ()=>speechSynthesis.getVoices();
+}
+
+terminal(
+    "ROBHA Cyber Defense initialized.",
+    "good"
+);
+
+terminal(
+    "Authorized testing boundary enforced.",
+    "good"
+);
+
+</script>
+
+</body>
+</html>
